@@ -1,16 +1,14 @@
 import { useState } from "react";
-import CounterButton from "./components/CounterButton";
+import CounterButton from "./components/counterButton";
 import CounterDisplay from "./components/CounterDisplay";
 import Header from "./components/Header";
 import Message from "./components/Message";
-// import ResetButton from "./components/ResetButton"
+
 
 function App() {
   const [counter, setCounter] = useState(0);
   const projectName = "clicker-game";
-  const handleReset = () => {
-    setCounter(0);
-  };
+
   return (
     <>
       <Header ProName={projectName} />
@@ -29,7 +27,12 @@ function App() {
           setCounter(counter - 1);
         }}
       />
-      <ResetButton title="Reset" ResetClick={handleReset} />
+      <CounterButton
+        title={"Reset"}
+        handleClick={() => {
+          setCounter(0);
+        }}
+      />
     </>
   );
 }
