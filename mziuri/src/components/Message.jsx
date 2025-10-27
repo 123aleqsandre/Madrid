@@ -4,13 +4,13 @@ export default function Message({ count }) {
     message = "barca < real Madrid";
   }
   if (count >= 20) {
-    message = "kaka";
+    message = "2 - 1";
   }
   if (count >= 30) {
-    message = "benzema";
+    message = "Mbappe";
   }
   if (count >= 40) {
-    message = "hala madrid";
+    message = "Jude";
   }
 
   return <p>{message}</p>;
