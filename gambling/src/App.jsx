@@ -1,51 +1,42 @@
 import { useState } from "react";
-import Player from "./components/Player.jsx";
+import Player from "./components/Player";
+import WinnerBanner from "./components/WinnerBanner";
 
 function App() {
-  const [player1, setPlayer1] = useState(0);
-  const [player2, setPlayer2] = useState(0);
-  const [currentPlayer, setCurrentPlayer] = useState(0);
-
-  const [player1Result, setPlayer1Result] = useState(0);
-  const [player2Result, setPlayer2Result] = useState(0);
-  const [round, setRound] = useState(0);
-  const [winner, setWinner] = useState("");
-
-  const LuckyWinner = (player1GG, player2GG) => {
-    if (player1GG > player2GG) {
-      setWinner("looser player 2 LOL");
-    } else if (player2GG > player1GG) {
-      setWinner("looser player 1 LOL");
-    } else {
-      setWinner("both is looser");
-    }
-    setRound(0);
-    player1Result(0);
-    player2Result(0);
-  };
+  const [player1, setPlayer1] = useState(null);
+  const [player2, setPlayer2] = useState(null);
+  const [currentPlayer, setCurrentPlayer] = useState(1);
+  const [winner, setWinner] = useState(null);
 
   const rollDice = () => {
-    const RandomNumber = Math.floor(Math.random() * 6) + 1;
-    setWinner("");
+    const randomNumber = Math.floor(Math.random() * 6) + 1;
 
     if (currentPlayer === 1) {
-      setPlayer1(RandomNumber);
-      setPlayer1Result(player1Result + RandomNumber + 1);
+      setPlayer1(randomNumber);
       setCurrentPlayer(2);
     } else {
-      setPlayer2(RandomNumber);
+      setPlayer2(randomNumber);
       setCurrentPlayer(1);
-      let newResult = player2Result + RandomNumber + 1;
-
-      setPlayer2Result(RandomNumber);
-      setPlayer2Result(newResult);
-      setCurrentPlayer(1);
-      setRound(round + 1);
+      determineWinner(randomNumber);
     }
   };
-  if (round === 1) {
-        LuckyWinner(player1Result, newResult);
-      }
+
+  const determineWinner = (player2Rolled) => {
+    if (player1 > player2Rolled) {
+      setWinner("Player 1");
+    } else if (player2Rolled > player1) {
+      setWinner("Player 2");
+    } else {
+      setWinner("tie");
+    }
+  };
+
+  const playAgain = () => {
+    setPlayer1(null);
+    setPlayer2(null);
+    setCurrentPlayer(1);
+    setWinner(null);
+  };
 
   return (
     <div
@@ -53,28 +44,39 @@ function App() {
         textAlign: "center",
         padding: "20px",
         margin: 0,
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
       }}
     >
-      <h1>Winner takes all</h1>
+      <h1>2-Player Dice Game</h1>
 
-      <div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "40px",
+          alignItems: "center",
+          marginTop: "40px",
+        }}
+      >
         <Player
-          title={"player 1"}
-          num={player1}
+          title={"Player 1"}
+          index={player1}
           handleClick={rollDice}
           isDisabled={currentPlayer === 2}
         />
 
-        <div>VS</div>
+        <div style={{ fontSize: "40px" }}>VS</div>
 
         <Player
-          title={"player 2"}
-          num={player2}
+          title={"Player 2"}
+          index={player2}
           handleClick={rollDice}
           isDisabled={currentPlayer === 1}
         />
       </div>
-      <h1>{winner}</h1>
+      <WinnerBanner winner={winner} onPlayAgain={playAgain} />
     </div>
   );
 }
