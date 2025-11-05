@@ -5,37 +5,38 @@ import WinnerBanner from "./components/WinnerBanner";
 function App() {
   const [player1, setPlayer1] = useState(null);
   const [player2, setPlayer2] = useState(null);
-  const [currentPlayer, setCurrentPlayer] = useState(1);
-  const [winner, setWinner] = useState(null);
+
+  const current = () => {
+    if (player1 === null) return 1;
+    return 2;
+  };
 
   const rollDice = () => {
     const randomNumber = Math.floor(Math.random() * 6) + 1;
 
-    if (currentPlayer === 1) {
+    if (current() === 1) {
       setPlayer1(randomNumber);
-      setCurrentPlayer(2);
     } else {
       setPlayer2(randomNumber);
-      setCurrentPlayer(1);
-      determineWinner(randomNumber);
     }
   };
 
-  const determineWinner = (player2Rolled) => {
-    if (player1 > player2Rolled) {
-      setWinner("Player 1");
-    } else if (player2Rolled > player1) {
-      setWinner("Player 2");
+  const winner = () => {
+    if (player2 === null) {
+      return null;
+    }
+    if (player1 > player2) {
+      return "looser player 2";
+    } else if (player2 > player1) {
+      return "looser player 1";
     } else {
-      setWinner("tie");
+      return "tie";
     }
   };
 
   const playAgain = () => {
     setPlayer1(null);
     setPlayer2(null);
-    setCurrentPlayer(1);
-    setWinner(null);
   };
 
   return (
@@ -64,7 +65,7 @@ function App() {
           title={"Player 1"}
           index={player1}
           handleClick={rollDice}
-          isDisabled={currentPlayer === 2}
+          isDisabled={current() === 2}
         />
 
         <div style={{ fontSize: "40px" }}>VS</div>
@@ -73,10 +74,10 @@ function App() {
           title={"Player 2"}
           index={player2}
           handleClick={rollDice}
-          isDisabled={currentPlayer === 1}
+          isDisabled={current() === 1}
         />
       </div>
-      <WinnerBanner winner={winner} onPlayAgain={playAgain} />
+      {winner() && <WinnerBanner winner={winner()} onPlayAgain={playAgain} />}
     </div>
   );
 }
