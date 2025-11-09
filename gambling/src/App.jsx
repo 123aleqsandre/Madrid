@@ -74,7 +74,7 @@ function App() {
           title={"Player 2"}
           index={player2}
           handleClick={rollDice}
-          isDisabled={current() === 1}
+          isDisabled={current() === 1 || player2 !== null}
         />
       </div>
       {winner() && <WinnerBanner winner={winner()} onPlayAgain={playAgain} />}
