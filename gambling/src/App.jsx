@@ -5,6 +5,7 @@ import WinnerBanner from "./components/WinnerBanner";
 function App() {
   const [player1, setPlayer1] = useState(null);
   const [player2, setPlayer2] = useState(null);
+  const [rounds, setrounds] = useState(1)
 
   const current = () => {
     if (player1 === null) return 1;
@@ -37,6 +38,7 @@ function App() {
   const playAgain = () => {
     setPlayer1(null);
     setPlayer2(null);
+    setrounds(rounds + 1)
   };
 
   return (
@@ -77,7 +79,7 @@ function App() {
           isDisabled={current() === 1 || player2 !== null}
         />
       </div>
-      {winner() && <WinnerBanner winner={winner()} onPlayAgain={playAgain} />}
+      {winner() && <WinnerBanner winner={winner()} onPlayAgain={playAgain} rounds={rounds}/>}
     </div>
   );
 }
