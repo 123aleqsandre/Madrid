@@ -5,8 +5,8 @@ import WinnerBanner from "./components/WinnerBanner";
 function App() {
   const [player1, setPlayer1] = useState(null);
   const [player2, setPlayer2] = useState(null);
-  const [round, setRound] = useState(3);
-  const gameOverCount = 1;
+  const [round, setRound] = useState(1);
+  const gameOverCount = 5;
 
   const isGameOver = round > gameOverCount;
 
