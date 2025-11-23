@@ -20,7 +20,7 @@ export default function App() {
   };
 
   const deleteTodo = (id) => {
-    setTodos(todos.filter((t) => t.id !== id));
+    setTodos(todos.filter((D) => D.id !== id));
   };
 
   return (
