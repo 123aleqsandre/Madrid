@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import Store from "./components/store";
-import Cart from "./components/Cart";
+import Cart from "./components/cart";
 
 function App() {
   const [cart, setCart] = useState([]);
