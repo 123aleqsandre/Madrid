@@ -1,5 +1,6 @@
 import { useState } from "react";
 import QuizQuestions from "./components/QuizQuestions";
+import "./App.css";
 
 function App() {
   const [difficulty, setDifficulty] = useState(null);
