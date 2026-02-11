@@ -1,36 +1,45 @@
 import { useState } from "react";
-import QuizQuestions from "./components/QuizQuestions"
-import QUIZ_DATA from "./quiz-questions"
+import QuizPage from "./components/QuizPage";
+import { QUIZ_DATA } from "./quiz-questions";
+import "./App.css";
 
+export default function App() {
+  const [questions, setQuestions] = useState(null);
 
-function App() {
-  const [difficulty, setDifficulty] = useState(null);
+  if (questions !== null) {
+    return <QuizPage questions={questions} />;
+  }
 
-  if(difficulty !== null){
-    return <QuizQuestions/>
+  function getQuestions(difficulty) {
+    setQuestions(QUIZ_DATA.filter((q) => q.difficulty === difficulty));
   }
 
   return (
-    <>
-    <h1>Welcome to our game</h1>
-    <h2>choose the difficulty</h2>
-    <button onClick={() => 
-    {if(setDifficulty = "easy"){
-      return QUIZ_DATA.difficulty
-    }}}
-    >easy</button>
+    <div className="app-container">
+      <h1 className="app-title">Welcome to the Game</h1>
 
-    <button onClick={() => 
-    {setDifficulty("medium") 
-    console.log(difficulty)}}
-    >medium</button>
+      <div className="button-container">
+        <button
+          className="btn easy-btn"
+          onClick={() => getQuestions("Easy")}
+        >
+          Easy
+        </button>
 
-    <button onClick={() => 
-    {setDifficulty("hard") 
-    console.log(difficulty)}}
-    >hard</button>
-    </>
-  )
+        <button
+          className="btn medium-btn"
+          onClick={() => getQuestions("Medium")}
+        >
+          Medium
+        </button>
+
+        <button
+          className="btn hard-btn"
+          onClick={() => getQuestions("Hard")}
+        >
+          Hard
+        </button>
+      </div>
+    </div>
+  );
 }
-
-export default App;
