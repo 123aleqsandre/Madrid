@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import classes from "./QuizPage.module.css";
 
 export default function QuizPage({ questions }) {
   const [index, setIndex] = useState(0);
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
   const [isLocked, setIsLocked] = useState(false);
+
+  useEffect(() => {
+    
+  })
 
   const currentQuestionData = questions[index];
 
