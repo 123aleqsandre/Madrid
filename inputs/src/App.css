@@ -33,7 +33,7 @@ h1 {
   border-bottom-color: red;
 }
 
-input {
+input, select {
   border: none;
   outline: none;
   padding: 8px 5px;
