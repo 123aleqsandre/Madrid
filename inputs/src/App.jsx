@@ -44,7 +44,7 @@ export default function Register() {
   return (
     <div className="page">
       <div className="container">
-        <h1>მოგესალმებით JobPortal-ში</h1>
+        <h1>მოგესალმებით</h1>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           {[
